@@ -17,10 +17,19 @@ public class SeatAllocatorService implements ISeatAllocatorService {
 				return rowComparison;
 			}
 			int centerColumn = placesPerRow / 2;
-			int distanceToCenter1 = Math.abs(group1.getSeat().get(group1.getSeat().size() / 2) - centerColumn);
-			int distanceToCenter2 = Math.abs(group2.getSeat().get(group2.getSeat().size() / 2) - centerColumn);
+			int center1 = getGroupCenter(group1);
+			int center2 = getGroupCenter(group2);
+			int distanceToCenter1 = Math.abs(center1 - centerColumn);
+			int distanceToCenter2 = Math.abs(center2 - centerColumn);
 			return Integer.compare(distanceToCenter1, distanceToCenter2);
 		});
+	}
+
+	private static int getGroupCenter(SeatOfAvailableGroups group) {
+		List<Integer> seats = group.getSeat();
+		int minSeat = seats.stream().min(Integer::compare).orElse(0);
+		int maxSeat = seats.stream().max(Integer::compare).orElse(0);
+		return (minSeat + maxSeat) / 2;
 	}
 
 	private static void removeGroupsSmallerThanUserRequirement(int requiredSeatsByUser, List<SeatOfAvailableGroups> availableGroups) {

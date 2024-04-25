@@ -24,6 +24,7 @@ public class MenuController implements IMenuController {
 	@Override
 	public void welcomeUser() {
 		menuService.welcomeUser();
+		printCurrentStaceCinema();
 		int numberOfSeatsToPurchase = askUserNumberOfSeatsToPurchase();
 		List<SeatOfAvailableGroups> bestAvailableSeats = seatAllocatorService.findAvailableGroups(cinema.getEmptySeats(), numberOfSeatsToPurchase);
 		printCurrentStaceCinema(bestAvailableSeats);
@@ -32,6 +33,11 @@ public class MenuController implements IMenuController {
 			item.setRow(row);
 			System.out.println(item);
 		}
+	}
+
+	@Override
+	public void printCurrentStaceCinema() {
+		menuService.printCurrentStaceCinema(null);
 	}
 
 	@Override

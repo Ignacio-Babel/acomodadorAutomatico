@@ -9,6 +9,8 @@ public interface IMenuController {
 
 	public void welcomeUser();
 
+	void printCurrentStaceCinema();
+
 	public void printCurrentStaceCinema(List<SeatOfAvailableGroups> bestAvailableSeats);
 
 }
